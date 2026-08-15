@@ -97,7 +97,7 @@ export async function fetchWeatherForCoordinates(lat, lon, name, region) {
       humidity: `${Math.round(current.relative_humidity_2m)}%`,
       wind: `${Math.round(current.wind_speed_10m)} km/jam`,
       uvIndex: Math.round(current.uv_index || 4),
-      airQuality: "Baik (Real-Time Stasiun BMKG)",
+      airQuality: "Baik",
       hourly: next5Hours
     };
   } catch (err) {
