@@ -2,9 +2,21 @@ import React from 'react';
 import { ShieldCheck, Radio, Clock, Layers, MapPin, ArrowRight, CloudSun, Wind, Droplets, Activity } from 'lucide-react';
 import InteractiveMap from '../components/InteractiveMap';
 import { useLanguage } from '../context/LanguageContext';
+import { translateBmkgText } from '../services/bmkgService';
+
+const renderWeatherIcon = (iconStr) => {
+  if (!iconStr || typeof iconStr !== 'string') return '🌤️';
+  if (iconStr.includes('sun') || iconStr.includes('clear')) return '☀️';
+  if (iconStr.includes('cloud') && iconStr.includes('partly')) return '⛅';
+  if (iconStr.includes('partly')) return '⛅';
+  if (iconStr.includes('cloud')) return '☁️';
+  if (iconStr.includes('rain')) return '🌧️';
+  if (iconStr.includes('thunder') || iconStr.includes('storm')) return '🌩️';
+  return '🌤️';
+};
 
 export default function DashboardPage({ latestQuake, quakes, weatherList, onSelectQuake, onNavigate }) {
-  const { t } = useLanguage();
+  const { language, t } = useLanguage();
   const currentQuake = latestQuake || quakes[0];
   const mag = parseFloat(currentQuake?.Magnitude) || 5.6;
 
@@ -76,7 +88,9 @@ export default function DashboardPage({ latestQuake, quakes, weatherList, onSele
                   </div>
 
                   <div>
-                    <h4 className="text-lg font-extrabold text-on-surface leading-tight">{currentQuake.Wilayah}</h4>
+                    <h4 className="text-lg font-extrabold text-on-surface leading-tight">
+                      {translateBmkgText(currentQuake.Wilayah, language)}
+                    </h4>
                     <p className="text-xs text-text-muted font-medium mt-1 flex items-center gap-1">
                       <Clock className="w-3.5 h-3.5 text-primary" /> {currentQuake.Jam} &bull; {currentQuake.Tanggal}
                     </p>
@@ -96,7 +110,9 @@ export default function DashboardPage({ latestQuake, quakes, weatherList, onSele
 
                 <div className="bg-safety-emerald/10 border border-safety-emerald/30 p-3 rounded-2xl flex items-center gap-2 text-xs">
                   <span className="w-2 h-2 rounded-full bg-safety-emerald animate-pulse"></span>
-                  <span className="font-bold text-safety-emerald">{currentQuake.Potensi || t('no_tsunami')}</span>
+                  <span className="font-bold text-safety-emerald">
+                    {translateBmkgText(currentQuake.Potensi || t('no_tsunami'), language)}
+                  </span>
                 </div>
 
                 <button 
@@ -132,10 +148,12 @@ export default function DashboardPage({ latestQuake, quakes, weatherList, onSele
             <div className="grid grid-cols-2 gap-2 text-xs">
               {weatherList.slice(0, 2).map((city, idx) => (
                 <div key={idx} className="bg-surface-container-low p-3 rounded-2xl border border-surface-border flex items-center gap-3">
-                  <div className="text-xl">{city.icon}</div>
-                  <div>
-                    <div className="font-bold text-on-surface">{city.city}</div>
-                    <div className="text-text-muted font-medium text-[11px]">{city.temp}°C &bull; {city.condition}</div>
+                  <div className="text-2xl shrink-0">{renderWeatherIcon(city.icon)}</div>
+                  <div className="overflow-hidden">
+                    <div className="font-bold text-on-surface truncate">{city.city}</div>
+                    <div className="text-text-muted font-medium text-[11px] truncate">
+                      {city.temp}°C &bull; {translateBmkgText(city.condition, language)}
+                    </div>
                   </div>
                 </div>
               ))}

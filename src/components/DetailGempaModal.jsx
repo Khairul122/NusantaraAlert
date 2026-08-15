@@ -1,9 +1,10 @@
 import React from 'react';
 import { X, ShieldAlert, Share2, MapPin, Layers, Clock, AlertTriangle, Compass, CheckCircle2 } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
+import { translateBmkgText } from '../services/bmkgService';
 
 export default function DetailGempaModal({ quake, onClose }) {
-  const { t } = useLanguage();
+  const { language, t } = useLanguage();
   if (!quake) return null;
 
   const mag = parseFloat(quake.Magnitude) || 5.0;
@@ -66,9 +67,9 @@ export default function DetailGempaModal({ quake, onClose }) {
             <div>
               <span className={`inline-flex items-center gap-1 px-3 py-0.5 rounded-full text-xs font-bold border mb-1.5 ${badgeColor}`}>
                 <AlertTriangle className="w-3.5 h-3.5" />
-                {quake.Potensi || "Dalam Pemantauan BMKG"}
+                {translateBmkgText(quake.Potensi || "Dalam Pemantauan BMKG", language)}
               </span>
-              <h2 className="text-lg font-bold text-on-surface leading-snug">{quake.Wilayah}</h2>
+              <h2 className="text-lg font-bold text-on-surface leading-snug">{translateBmkgText(quake.Wilayah, language)}</h2>
               <div className="text-xs text-text-muted flex items-center gap-1 mt-1 font-medium">
                 <Clock className="w-3.5 h-3.5" />
                 {quake.Jam} &bull; {quake.Tanggal}

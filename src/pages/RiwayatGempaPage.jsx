@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Search, Filter, Calendar, MapPin, ChevronRight, AlertTriangle, Layers, Clock } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
+import { translateBmkgText } from '../services/bmkgService';
 
 export default function RiwayatGempaPage({ quakes, onSelectQuake }) {
-  const { t } = useLanguage();
+  const { language, t } = useLanguage();
   const [searchQuery, setSearchQuery] = useState('');
   const [magFilter, setMagFilter] = useState('all');
 
@@ -104,7 +105,7 @@ export default function RiwayatGempaPage({ quakes, onSelectQuake }) {
                 </div>
 
                 <h3 className="font-extrabold text-base text-on-surface group-hover:text-primary transition-colors leading-snug">
-                  {quake.Wilayah}
+                  {translateBmkgText(quake.Wilayah, language)}
                 </h3>
                 <p className="text-xs text-text-muted font-medium mt-1">
                   {quake.Tanggal}

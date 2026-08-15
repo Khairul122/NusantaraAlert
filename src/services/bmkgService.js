@@ -264,17 +264,41 @@ export async function fetchEarthquakeHistory() {
   }
 }
 
-// Fetch Weather for Default Indonesia Locations
-export async function fetchLiveWeatherData() {
-  try {
-    const promises = DEFAULT_INDONESIA_LOCATIONS.map(async (loc) => {
-      return await fetchWeatherForCoordinates(loc.lat, loc.lon, loc.name, loc.region);
-    });
+// Auto Translate BMKG Dynamic Data to English
+export function translateBmkgText(text, lang = 'id') {
+  if (!text || lang !== 'en') return text;
 
-    const results = await Promise.all(promises);
-    return results.filter(Boolean);
-  } catch (err) {
-    console.error("Error fetching default weather data:", err);
-    return [];
-  }
+  let translated = String(text);
+
+  // Directions (Arah Mata Angin)
+  translated = translated
+    .replace(/\bbarat daya\b/gi, 'southwest')
+    .replace(/\bbarat laut\b/gi, 'northwest')
+    .replace(/\btenggara\b/gi, 'southeast')
+    .replace(/\btimur laut\b/gi, 'northeast')
+    .replace(/\bselatan\b/gi, 'south')
+    .replace(/\butara\b/gi, 'north')
+    .replace(/\btimur\b/gi, 'east')
+    .replace(/\bbarat\b/gi, 'west');
+
+  // Sentences & Locations (Kalimat BMKG)
+  translated = translated
+    .replace(/Pusat gempa berada di laut/gi, 'Epicenter located at sea')
+    .replace(/Pusat gempa berada di darat/gi, 'Epicenter located on land')
+    .replace(/Tidak berpotensi TSUNAMI/gi, 'No Tsunami Potential')
+    .replace(/Berpotensi TSUNAMI/gi, 'TSUNAMI POTENTIAL ALERT')
+    .replace(/Gempa dirasakan/gi, 'Quake felt in');
+
+  // Weather conditions (Kondisi Cuaca)
+  translated = translated
+    .replace(/\bCerah Berawan\b/gi, 'Partly Cloudy')
+    .replace(/\bCerah\b/gi, 'Sunny')
+    .replace(/\bBerawan\b/gi, 'Cloudy')
+    .replace(/\bHujan Ringan\b/gi, 'Light Rain')
+    .replace(/\bHujan Sedang\b/gi, 'Moderate Rain')
+    .replace(/\bHujan Lebat\b/gi, 'Heavy Rain')
+    .replace(/\bHujan Petir\b/gi, 'Thunderstorm');
+
+  return translated;
 }
+
