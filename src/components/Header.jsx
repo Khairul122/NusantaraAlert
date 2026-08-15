@@ -18,9 +18,11 @@ export default function Header({ activeTab, setActiveTab, onOpenNotifications, o
           onClick={(e) => { e.preventDefault(); setActiveTab('dashboard'); }}
           title="NusantaraAlert - Beranda Utama"
         >
-          <div className="w-9 h-9 bg-primary text-white rounded-xl flex items-center justify-center font-extrabold text-lg shadow-sm">
-            N
-          </div>
+          <img 
+            src="/logo.png" 
+            alt="NusantaraAlert Logo" 
+            className="w-10 h-10 object-contain rounded-xl shadow-sm border border-surface-border/50" 
+          />
           <div>
             <span className="text-xl font-headline-md font-extrabold text-primary tracking-tight">
               Nusantara<span className="text-safety-emerald">Alert</span>
