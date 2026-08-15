@@ -28,30 +28,30 @@ export default function DisasterAlertModal({ isOpen, onClose, latestQuake }) {
         onClick={(e) => e.stopPropagation()}
       >
         {/* Top Header Banner */}
-        <div className={`p-5 border-b flex justify-between items-start text-white relative overflow-hidden ${
+        <div className={`p-6 sm:p-7 border-b flex justify-between items-start text-white relative overflow-hidden ${
           isHighAlert ? 'bg-gradient-to-r from-red-600 to-rose-700' : 'bg-gradient-to-r from-emerald-700 via-emerald-600 to-teal-700'
         }`}>
           {/* Subtle Background Pattern */}
           <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]" />
 
-          <div className="relative z-10 space-y-1">
-            <div className="flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-white animate-ping"></span>
-              <span className="text-[11px] font-extrabold uppercase tracking-widest bg-white/20 px-2.5 py-0.5 rounded-full backdrop-blur-xs">
+          <div className="relative z-10 space-y-2.5 max-w-[85%]">
+            <div>
+              <span className="inline-flex items-center gap-2 text-[11px] font-extrabold uppercase tracking-widest bg-white/20 px-3 py-1 rounded-full backdrop-blur-xs border border-white/20 shadow-xs">
+                <span className="w-2 h-2 rounded-full bg-emerald-300 animate-ping shrink-0"></span>
                 Peringatan Siaga Bencana Publik
               </span>
             </div>
-            <h2 className="text-xl font-extrabold tracking-tight">
+            <h2 className="text-xl sm:text-2xl font-extrabold tracking-tight leading-snug">
               {isHighAlert ? 'PERINGATAN SIAGA GEMPA BUMI M 6.0+' : 'Pusat Informasi & Kesiapsiagaan Bencana'}
             </h2>
-            <p className="text-xs text-white/90 font-medium">
-              Sistem Pemantauan Terpadu BMKG & Badan Nasional Penanggulangan Bencana (BNPB)
+            <p className="text-xs text-white/95 font-medium leading-relaxed">
+              Sistem Pemantauan Terpadu BMKG &amp; Badan Nasional Penanggulangan Bencana (BNPB)
             </p>
           </div>
 
           <button 
             onClick={onClose}
-            className="relative z-10 p-1.5 text-white/80 hover:text-white hover:bg-white/20 rounded-full transition-colors"
+            className="relative z-10 p-2 text-white/80 hover:text-white hover:bg-white/20 rounded-full transition-colors shrink-0 -mt-1 -mr-1"
             aria-label="Tutup Pop-up Siaga Bencana"
           >
             <X className="w-5 h-5" />
