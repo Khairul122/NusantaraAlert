@@ -28,22 +28,25 @@ export function DisasterAlertModal({ isOpen, onClose, latestQuake }) {
         onClick={(e) => e.stopPropagation()}
       >
         {/* Top Header Banner */}
-        <div className={`p-6 sm:p-7 border-b flex justify-between items-start text-white relative overflow-hidden ${
-          isHighAlert ? 'bg-gradient-to-r from-red-600 to-rose-700' : 'bg-gradient-to-r from-emerald-700 via-emerald-600 to-teal-700'
+        <div className={`px-6 pt-6 pb-8 sm:px-8 sm:pt-7 sm:pb-9 border-b flex justify-between items-start text-white relative overflow-hidden ${
+          isHighAlert ? 'bg-gradient-to-r from-red-600 via-rose-600 to-red-700' : 'bg-gradient-to-r from-emerald-700 via-emerald-600 to-teal-700'
         }`}>
           {/* Subtle Background Pattern */}
           <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]" />
 
-          <div className="relative z-10 space-y-2.5 max-w-[85%]">
+          <div className="relative z-10 space-y-3 max-w-[85%]">
             <div>
               <span className="inline-flex items-center gap-2 text-[11px] font-extrabold uppercase tracking-widest bg-white/20 px-3 py-1 rounded-full backdrop-blur-xs border border-white/20 shadow-xs">
-                <span className="w-2 h-2 rounded-full bg-emerald-300 animate-ping shrink-0"></span>
+                <span className={`w-2 h-2 rounded-full animate-ping shrink-0 ${isHighAlert ? 'bg-white' : 'bg-emerald-300'}`}></span>
                 Peringatan Siaga Bencana Publik
               </span>
             </div>
             <h2 className="text-xl sm:text-2xl font-extrabold tracking-tight leading-snug">
               {isHighAlert ? 'PERINGATAN SIAGA GEMPA BUMI M 6.0+' : 'Pusat Informasi & Kesiapsiagaan Bencana'}
             </h2>
+            <p className="text-xs text-white/90 font-medium leading-relaxed">
+              Sistem Pemantauan Terpadu BMKG &amp; Badan Nasional Penanggulangan Bencana (BNPB)
+            </p>
           </div>
 
           <button 
