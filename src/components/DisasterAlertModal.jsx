@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ShieldAlert, PhoneCall, Volume2, VolumeX, CheckCircle, X, BellRing, ShieldCheck, AlertTriangle } from 'lucide-react';
 
-export default function DisasterAlertModal({ isOpen, onClose, latestQuake }) {
+export function DisasterAlertModal({ isOpen, onClose, latestQuake }) {
   const [soundAlert, setSoundAlert] = useState(false);
   const [dontShowAgain, setDontShowAgain] = useState(false);
 
@@ -60,93 +60,89 @@ export default function DisasterAlertModal({ isOpen, onClose, latestQuake }) {
           {/* Status Real-Time Summary */}
           <div className="p-4 rounded-2xl bg-surface-container-low border border-surface-border flex items-start gap-3">
             {isHighAlert ? (
-              <AlertTriangle className="w-6 h-6 text-alert-rose shrink-0 mt-0.5" />
+              <ShieldAlert className="w-6 h-6 text-alert-rose shrink-0 mt-0.5" />
             ) : (
               <ShieldCheck className="w-6 h-6 text-safety-emerald shrink-0 mt-0.5" />
             )}
             <div>
-              <h3 className="font-bold text-sm text-on-surface">
-                {isHighAlert ? 'Status Wilayah: SIAGA GEMPA & EVALUASI TSUNAMI' : 'Status Wilayah Indonesia: NORMAL & AMAN'}
-              </h3>
+              <h4 className="font-extrabold text-sm text-on-surface">
+                {isHighAlert ? 'PERINGATAN DARURAT BMKG: GEMPA KUAT' : 'Status Wilayah Indonesia: NORMAL & AMAN'}
+              </h4>
               <p className="text-xs text-text-muted mt-1 leading-relaxed">
-                {latestQuake 
-                  ? `Gempa bumi M ${latestQuake.Magnitude} terdeteksi di ${latestQuake.Wilayah} (${latestQuake.Jam}). ${latestQuake.Potensi}`
-                  : 'Hasil pemantauan 842 stasiun seismograf BMKG menunjukkan kondisi pesisir Indonesia aman dari ancaman tsunami.'}
+                {isHighAlert 
+                  ? `Terdeteksi Gempa M ${latestQuake?.Magnitude} di ${latestQuake?.Wilayah}. Lakukan evakuasi mandiri ke lokasi aman!`
+                  : 'Seluruh stasiun pemantau seismik BMKG & sistem peringatan dini tsunami (TEWS) dalam kondisi aktif dan terpantau terkendali.'}
               </p>
             </div>
           </div>
 
-          {/* Quick Direct Call Emergency Buttons */}
-          <div className="space-y-2">
-            <h3 className="text-xs font-extrabold uppercase tracking-wider text-on-surface flex items-center gap-1.5">
-              <PhoneCall className="w-4 h-4 text-alert-rose" /> Panggilan Darurat Siaga (Direct Call 24 Jam)
-            </h3>
-
-            <div className="grid grid-cols-3 gap-2.5">
+          {/* Emergency Direct Call Section */}
+          <div>
+            <h4 className="text-xs font-extrabold text-on-surface uppercase tracking-wider mb-2 flex items-center gap-1.5">
+              <PhoneCall className="w-4 h-4 text-primary" /> Hotline Darurat Bencana Direct (24 Jam)
+            </h4>
+            <div className="grid grid-cols-2 gap-2 text-xs">
               <button 
                 onClick={() => handleDirectDial('115')}
-                className="bg-alert-rose/10 hover:bg-alert-rose text-alert-rose hover:text-white border border-alert-rose/30 p-3 rounded-2xl transition-all text-center flex flex-col items-center justify-center group shadow-xs"
+                className="p-3 bg-primary/10 hover:bg-primary/20 text-primary border border-primary/20 rounded-xl font-bold flex items-center justify-between transition-colors shadow-xs"
               >
-                <span className="font-black text-lg group-hover:scale-110 transition-transform">115</span>
-                <span className="text-[10px] font-bold mt-0.5">Basarnas SAR</span>
+                <span>Basarnas (SAR)</span>
+                <span className="bg-primary text-white text-[10px] px-2 py-0.5 rounded-md">115</span>
               </button>
-
               <button 
                 onClick={() => handleDirectDial('117')}
-                className="bg-primary/10 hover:bg-primary text-primary hover:text-white border border-primary/30 p-3 rounded-2xl transition-all text-center flex flex-col items-center justify-center group shadow-xs"
+                className="p-3 bg-primary/10 hover:bg-primary/20 text-primary border border-primary/20 rounded-xl font-bold flex items-center justify-between transition-colors shadow-xs"
               >
-                <span className="font-black text-lg group-hover:scale-110 transition-transform">117</span>
-                <span className="text-[10px] font-bold mt-0.5">BNPB Pusat</span>
+                <span>Call Center BNPB</span>
+                <span className="bg-primary text-white text-[10px] px-2 py-0.5 rounded-md">117</span>
               </button>
-
               <button 
                 onClick={() => handleDirectDial('119')}
-                className="bg-warning-amber/10 hover:bg-warning-amber text-warning-amber hover:text-white border border-warning-amber/30 p-3 rounded-2xl transition-all text-center flex flex-col items-center justify-center group shadow-xs"
+                className="p-3 bg-surface-container-low hover:bg-surface-container text-on-surface border border-surface-border rounded-xl font-bold flex items-center justify-between transition-colors shadow-xs"
               >
-                <span className="font-black text-lg group-hover:scale-110 transition-transform">119</span>
-                <span className="text-[10px] font-bold mt-0.5">Ambulans Medis</span>
+                <span>Ambulans Medis</span>
+                <span className="bg-surface-border text-on-surface text-[10px] px-2 py-0.5 rounded-md">119</span>
+              </button>
+              <button 
+                onClick={() => handleDirectDial('196')}
+                className="p-3 bg-surface-container-low hover:bg-surface-container text-on-surface border border-surface-border rounded-xl font-bold flex items-center justify-between transition-colors shadow-xs"
+              >
+                <span>Info BMKG</span>
+                <span className="bg-surface-border text-on-surface text-[10px] px-2 py-0.5 rounded-md">196</span>
               </button>
             </div>
           </div>
 
           {/* 3 Steps Readiness Protocol */}
-          <div className="bg-surface-container-low p-4 rounded-2xl border border-surface-border space-y-2.5">
-            <h3 className="font-bold text-xs uppercase tracking-wider text-on-surface flex items-center gap-1.5">
-              <BellRing className="w-4 h-4 text-primary" /> Protokol Utama Kesiapsiagaan Diri
-            </h3>
-            
-            <ul className="text-xs text-on-surface-variant space-y-2 font-medium">
-              <li className="flex items-start gap-2">
+          <div>
+            <h4 className="text-xs font-extrabold text-on-surface uppercase tracking-wider mb-2 flex items-center gap-1.5">
+              <BellRing className="w-4 h-4 text-alert-amber" /> 3 Langkah Taktis Mitigasi Cepat
+            </h4>
+            <div className="space-y-2 text-xs">
+              <div className="p-3 rounded-xl bg-surface-container-low border border-surface-border flex items-start gap-2.5">
                 <span className="w-5 h-5 rounded-full bg-primary text-white text-[11px] font-extrabold flex items-center justify-center shrink-0 mt-0.5">1</span>
-                <span><strong>Saat Gempa:</strong> Lakukan prinsip <em>Merunduk, Lindungi Kepala, dan Berpegangan</em> di bawah meja yang kokoh.</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="w-5 h-5 rounded-full bg-primary text-white text-[11px] font-extrabold flex items-center justify-center shrink-0 mt-0.5">2</span>
-                <span><strong>Tanda Tsunami:</strong> Jika air laut surut tiba-tiba setelah gempa kuat, segera lari menuju area tinggi di atas 20 meter.</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="w-5 h-5 rounded-full bg-primary text-white text-[11px] font-extrabold flex items-center justify-center shrink-0 mt-0.5">3</span>
-                <span><strong>Tas Siaga Bencana:</strong> Pastikan ransel darurat berisi air, makanan, P3K, dan dokumen penting telah disiapkan.</span>
-              </li>
-            </ul>
-          </div>
+                <div>
+                  <div className="font-bold text-on-surface">Merunduk, Lindungi Kepala & Berpegangan</div>
+                  <div className="text-text-muted text-[11px] mt-0.5">Seketika gempa terjadi, segera merunduk di bawah meja kokoh dan jauhi barang kaca.</div>
+                </div>
+              </div>
 
-          {/* Sound & Notification Toggle */}
-          <div className="flex items-center justify-between p-3.5 bg-surface-container-lowest rounded-xl border border-surface-border text-xs">
-            <div className="flex items-center gap-2.5">
-              {soundAlert ? <Volume2 className="w-4 h-4 text-primary" /> : <VolumeX className="w-4 h-4 text-text-muted" />}
-              <div>
-                <span className="font-bold text-on-surface">Sirine Alarm Suara Darurat</span>
-                <p className="text-[11px] text-text-muted">Bunyikan alarm saat ada gempa M 6.0+</p>
+              <div className="p-3 rounded-xl bg-surface-container-low border border-surface-border flex items-start gap-2.5">
+                <span className="w-5 h-5 rounded-full bg-primary text-white text-[11px] font-extrabold flex items-center justify-center shrink-0 mt-0.5">2</span>
+                <div>
+                  <div className="font-bold text-on-surface">Evakuasi Jalur Terbuka Tanpa Lift</div>
+                  <div className="text-text-muted text-[11px] mt-0.5">Gunakan tangga darurat gedung, jauhi tiang listrik, baliho, dan lereng rawan longsor.</div>
+                </div>
+              </div>
+
+              <div className="p-3 rounded-xl bg-surface-container-low border border-surface-border flex items-start gap-2.5">
+                <span className="w-5 h-5 rounded-full bg-primary text-white text-[11px] font-extrabold flex items-center justify-center shrink-0 mt-0.5">3</span>
+                <div>
+                  <div className="font-bold text-on-surface">Pastikan Radio / Informasi Resmi BMKG Active</div>
+                  <div className="text-text-muted text-[11px] mt-0.5">Hanya percayai kabar dari BPBD, BMKG, dan Basarnas. Jauhi isu hoax yang beredar.</div>
+                </div>
               </div>
             </div>
-
-            <input 
-              type="checkbox" 
-              checked={soundAlert}
-              onChange={(e) => setSoundAlert(e.target.checked)}
-              className="w-4 h-4 accent-primary rounded cursor-pointer"
-            />
           </div>
 
           {/* Don't show again checkbox */}
@@ -177,3 +173,5 @@ export default function DisasterAlertModal({ isOpen, onClose, latestQuake }) {
     </div>
   );
 }
+
+export default DisasterAlertModal;
