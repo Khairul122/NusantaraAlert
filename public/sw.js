@@ -2,6 +2,7 @@ const CACHE_NAME = 'nusantara-alert-v1';
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',
+  '/logo.png',
   '/mascot.png',
   '/manifest.json'
 ];
@@ -35,11 +36,14 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
   // Network first with offline cache fallback strategy
   if (event.request.method !== 'GET') return;
+  
+  // Skip non-http/https schemes (e.g., chrome-extension://, devtools://)
+  if (!event.request.url.startsWith('http://') && !event.request.url.startsWith('https://')) return;
 
   event.respondWith(
     fetch(event.request)
       .then((networkResponse) => {
-        if (networkResponse && networkResponse.status === 200) {
+        if (networkResponse && networkResponse.status === 200 && networkResponse.type === 'basic') {
           const responseClone = networkResponse.clone();
           caches.open(CACHE_NAME).then((cache) => {
             cache.put(event.request, responseClone);
@@ -52,7 +56,7 @@ self.addEventListener('fetch', (event) => {
           if (cachedResponse) {
             return cachedResponse;
           }
-          if (event.request.headers.get('accept').includes('text/html')) {
+          if (event.request.headers.get('accept') && event.request.headers.get('accept').includes('text/html')) {
             return caches.match('/index.html');
           }
         });
