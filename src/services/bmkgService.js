@@ -302,3 +302,18 @@ export function translateBmkgText(text, lang = 'id') {
   return translated;
 }
 
+// Fetch Weather for Default Indonesia Locations
+export async function fetchLiveWeatherData() {
+  try {
+    const promises = DEFAULT_INDONESIA_LOCATIONS.map(async (loc) => {
+      return await fetchWeatherForCoordinates(loc.lat, loc.lon, loc.name, loc.region);
+    });
+
+    const results = await Promise.all(promises);
+    return results.filter(Boolean);
+  } catch (err) {
+    console.error("Error fetching default weather data:", err);
+    return [];
+  }
+}
+
