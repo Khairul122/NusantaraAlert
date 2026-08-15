@@ -44,6 +44,9 @@ export function DisasterAlertModal({ isOpen, onClose, latestQuake }) {
             <h2 className="text-xl sm:text-2xl font-extrabold tracking-tight leading-snug">
               {isHighAlert ? 'PERINGATAN SIAGA GEMPA BUMI M 6.0+' : 'Pusat Informasi & Kesiapsiagaan Bencana'}
             </h2>
+            <p className="text-xs text-white/90 font-medium leading-relaxed">
+
+            </p>
           </div>
 
           <button 
