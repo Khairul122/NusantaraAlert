@@ -14,20 +14,6 @@
 
 ---
 
-## 🖼️ Tangkapan Layar Website (Screenshots Showcase)
-
-### 🖥️ Desktop Dashboard View
-<p align="center">
-  <img src="./docs/screenshots/desktop_dashboard.png" alt="Desktop Dashboard View" width="100%" />
-</p>
-
-### 📱 Mobile View
-<p align="center">
-  <img src="./docs/screenshots/mobile_dashboard.png" alt="Mobile Dashboard View" width="320" />
-</p>
-
----
-
 ## 📸 Maskot Resmi: Si Alerta 🦅
 
 <p align="center">

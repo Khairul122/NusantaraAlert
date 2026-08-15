@@ -9,26 +9,6 @@ Dokumen ini berisi arsitektur sistem, rincian komponen, antarmuka pengguna, sert
 
 ---
 
-## 🖼️ Tangkapan Layar Antarmuka Website (Screenshots)
-
-### 🖥️ 1. Tampilan Desktop (Desktop View)
-<p align="center">
-  <img src="./docs/screenshots/desktop_dashboard.png" alt="Tampilan Desktop Dashboard NusantaraAlert" width="100%" />
-  <br />
-  <i>Tampilan Utama Dashboard Desktop: Peta Episentrum Gempa, Status Tsunami, Laporan Gempa Terkini, Ringkasan Cuaca & Layer Tematik Peta.</i>
-</p>
-
----
-
-### 📱 2. Tampilan Seluler (Mobile View)
-<p align="center">
-  <img src="./docs/screenshots/mobile_dashboard.png" alt="Tampilan Mobile Dashboard NusantaraAlert" width="360" />
-  <br />
-  <i>Tampilan Seluler (Mobile View): Antarmuka Responsif, Bottom Navigation Bar, dan Akses Cepat Asisten AI Si Alerta.</i>
-</p>
-
----
-
 ## 🧩 Arsitektur Modul & Komponen Utama
 
 ```mermaid
