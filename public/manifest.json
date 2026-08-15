@@ -1,0 +1,19 @@
+{
+  "short_name": "NusantaraAlert",
+  "name": "NusantaraAlert - Platform Siaga Bencana & BMKG",
+  "icons": [
+    {
+      "src": "/mascot.png",
+      "type": "image/png",
+      "sizes": "192x192 512x512",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#ffffff",
+  "theme_color": "#006c49",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "description": "Portal pemantauan bencana BMKG, peta episentrum gempa, prakiraan cuaca, dan kontak siaga darurat Indonesia."
+}

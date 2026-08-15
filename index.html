@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Primary SEO Title & Meta Tags -->
+    <title>NusantaraAlert - Portal Informasi Gempa Bumi Terkini BMKG, Peta Episentrum & Prakiraan Cuaca Indonesia</title>
+    <meta name="title" content="NusantaraAlert - Portal Informasi Gempa Bumi Terkini BMKG, Peta Episentrum & Prakiraan Cuaca Indonesia" />
+    <meta name="description" content="Portal pemantauan bencana dan meteorologi publik Indonesia terpadu. Dapatkan informasi gempa bumi terkini BMKG, peringatan dini tsunami, peta episentrum interaktif, prakiraan cuaca kabupaten dan kota, serta kontak darurat 24 jam." />
+    <meta name="keywords" content="gempa bumi terkini, info gempa bmkg, prakiraan cuaca indonesia, peringatan dini tsunami, peta episentrum gempa, kontak darurat basarnas, bnpb, cuaca jakarta, cuaca bandung, cuaca surabaya" />
+    <meta name="author" content="NusantaraAlert Indonesia" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#006c49" />
+    <link rel="canonical" href="https://nusantaraalert.go.id/" />
+
+    <!-- Open Graph / Facebook / WhatsApp Meta Tags -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://nusantaraalert.go.id/" />
+    <meta property="og:title" content="NusantaraAlert - Pantauan Gempa Terkini BMKG & Cuaca Indonesia" />
+    <meta property="og:description" content="Informasi gempa bumi waktu-nyata BMKG, status peringatan dini tsunami, peta episentrum interaktif, prakiraan cuaca wilayah, dan nomor telepon darurat." />
+    <meta property="og:image" content="https://nusantaraalert.go.id/og-image.jpg" />
+    <meta property="og:locale" content="id_ID" />
+    <meta property="og:site_name" content="NusantaraAlert" />
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://nusantaraalert.go.id/" />
+    <meta name="twitter:title" content="NusantaraAlert - Info Gempa Terkini & Cuaca BMKG Indonesia" />
+    <meta name="twitter:description" content="Pantauan aktivitas seismik dan cuaca waktu-nyata dari jaringan stasiun BMKG seluruh Indonesia. Akses panduan mitigasi bencana gratis." />
+    <meta name="twitter:image" content="https://nusantaraalert.go.id/og-image.jpg" />
+
+    <!-- Schema.org JSON-LD Structured Data for Search Engine Rich Snippets -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "GovernmentService",
+      "name": "NusantaraAlert",
+      "serviceType": "Disaster & Weather Monitoring Service",
+      "provider": {
+        "@type": "GovernmentOrganization",
+        "name": "Badan Meteorologi, Klimatologi, dan Geofisika (BMKG)",
+        "url": "https://www.bmkg.go.id"
+      },
+      "areaServed": {
+        "@type": "Country",
+        "name": "Indonesia"
+      },
+      "description": "Pusat informasi resmi pemantauan gempa bumi terkini BMKG, peta episentrum interaktif, prakiraan cuaca kota dan kabupaten, serta panduan keselamatan bencana.",
+      "url": "https://nusantaraalert.go.id"
+    }
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+    
+    <!-- PWA Manifest & Mobile Icons -->
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="NusantaraAlert" />
+    <link rel="apple-touch-icon" href="/mascot.png" />
+
+    <!-- Leaflet Map CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  </head>
+  <body class="bg-background text-on-surface font-sans antialiased min-h-screen">
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js')
+            .then(reg => console.log('[PWA] ServiceWorker registered successfully:', reg.scope))
+            .catch(err => console.log('[PWA] ServiceWorker registration failed:', err));
+        });
+      }
+    </script>
+  </body>
+</html>
