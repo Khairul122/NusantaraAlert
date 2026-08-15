@@ -1,26 +1,38 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { MessageSquare, X, Send, Bot, Sparkles, PhoneCall, ShieldAlert, AlertTriangle, RefreshCw, Volume2, CloudSun, MapPin } from 'lucide-react';
 import { searchIndonesianLocations, fetchWeatherForCoordinates } from '../services/bmkgService';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function AlertAiChatbot({ latestQuake }) {
+  const { language, t } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState([
-    {
-      id: 1,
-      sender: 'bot',
-      text: 'Halo! Saya Si Alerta 🦅, Asisten AI Siaga Bencana Nusantara. Ada yang bisa saya bantu? Anda bisa menanyakan info cuaca kota (contoh: "info cuaca Lhokseumawe"), lokasi gempa terbaru, indeks risiko daerah, atau nomor telepon darurat.',
-      time: 'Waktu-Nyata'
-    }
-  ]);
+  const [messages, setMessages] = useState([]);
   const [inputText, setInputText] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const chatEndRef = useRef(null);
 
   useEffect(() => {
+    setMessages([
+      {
+        id: 1,
+        sender: 'bot',
+        text: t('bot_greeting'),
+        time: 'Real-Time'
+      }
+    ]);
+  }, [language]);
+
+  useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, isTyping]);
 
-  const QUICK_QUESTIONS = [
+  const QUICK_QUESTIONS = language === 'en' ? [
+    "Weather in Lhokseumawe",
+    "Where is the latest quake?",
+    "Emergency Hotline Numbers",
+    "Safety actions during Quake",
+    "Disaster Risk Index"
+  ] : [
     "Info cuaca Lhokseumawe",
     "Dimana gempa terbaru?",
     "Nomor darurat Basarnas & BNPB",
@@ -260,7 +272,7 @@ export default function AlertAiChatbot({ latestQuake }) {
                 <div className="w-6 h-6 rounded-full overflow-hidden bg-white shrink-0">
                   <img src="/mascot.png" alt="Si Alerta" className="w-full h-full object-cover" />
                 </div>
-                <span>Si Alerta sedang mencari data BMKG...</span>
+                <span>{t('bot_typing')}</span>
               </div>
             )}
 
@@ -289,7 +301,7 @@ export default function AlertAiChatbot({ latestQuake }) {
               type="text"
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
-              placeholder="Tanya Si Alerta"
+              placeholder={t('bot_placeholder')}
               className="flex-1 bg-surface-container-low border border-surface-border rounded-xl px-3 py-2 text-xs text-on-surface focus:outline-none focus:ring-2 focus:ring-primary shadow-xs"
             />
             <button

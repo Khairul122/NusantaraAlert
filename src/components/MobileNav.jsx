@@ -1,12 +1,15 @@
 import React from 'react';
 import { LayoutDashboard, History, CloudSun, PhoneCall } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function MobileNav({ activeTab, setActiveTab }) {
+  const { t } = useLanguage();
+
   const navItems = [
-    { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
-    { id: 'history', label: 'Riwayat', icon: History },
-    { id: 'weather', label: 'Cuaca', icon: CloudSun },
-    { id: 'contacts', label: 'Panduan', icon: PhoneCall }
+    { id: 'dashboard', label: t('nav_dashboard'), icon: LayoutDashboard },
+    { id: 'history', label: t('nav_history'), icon: History },
+    { id: 'weather', label: t('nav_weather'), icon: CloudSun },
+    { id: 'contacts', label: t('nav_contacts'), icon: PhoneCall }
   ];
 
   return (
@@ -25,7 +28,7 @@ export default function MobileNav({ activeTab, setActiveTab }) {
             }`}
           >
             <Icon className={`w-5 h-5 ${isActive ? 'stroke-[2.5px]' : 'stroke-2'}`} />
-            <span className="text-[11px] leading-none font-medium">{item.label}</span>
+            <span className="text-[11px] leading-none font-medium truncate max-w-[70px]">{item.label}</span>
           </button>
         );
       })}

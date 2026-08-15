@@ -29,8 +29,8 @@ export default function NotificationDrawer({ isOpen, onClose }) {
   ];
 
   return (
-    <div className="fixed inset-0 z-[9999] flex justify-end bg-black/40 backdrop-blur-xs animate-fade-in" onClick={onClose}>
-      <div 
+    <div className="fixed inset-0 z-50 flex justify-end bg-black/40 backdrop-blur-xs animate-fade-in" onClick={onClose}>
+      <div
         className="w-full max-w-sm bg-surface-container-lowest h-full shadow-2xl border-l border-surface-border p-5 flex flex-col justify-between animate-slide-left"
         onClick={(e) => e.stopPropagation()}
       >
@@ -52,7 +52,7 @@ export default function NotificationDrawer({ isOpen, onClose }) {
                   {n.type === 'success' && <ShieldCheck className="w-5 h-5 text-safety-emerald shrink-0 mt-0.5" />}
                   {n.type === 'warning' && <AlertTriangle className="w-5 h-5 text-warning-amber shrink-0 mt-0.5" />}
                   {n.type === 'info' && <Info className="w-5 h-5 text-weather-sky shrink-0 mt-0.5" />}
-                  
+
                   <div>
                     <h4 className="font-bold text-sm text-on-surface">{n.title}</h4>
                     <p className="text-xs text-on-surface-variant mt-1 leading-relaxed">{n.desc}</p>
@@ -64,7 +64,7 @@ export default function NotificationDrawer({ isOpen, onClose }) {
           </div>
         </div>
 
-        <button 
+        <button
           onClick={onClose}
           className="w-full py-2.5 bg-surface-container text-on-surface font-semibold text-sm rounded-xl border border-surface-border hover:bg-surface-container-high transition-colors"
         >

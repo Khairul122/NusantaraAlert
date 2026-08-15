@@ -1,12 +1,15 @@
 import React from 'react';
-import { Bell, Settings } from 'lucide-react';
+import { Bell, Settings, Globe } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function Header({ activeTab, setActiveTab, onOpenNotifications, onOpenSettings, onOpenDisasterAlert, onOpenRiskIndex }) {
+  const { language, toggleLanguage, t } = useLanguage();
+
   const navItems = [
-    { id: 'dashboard', label: 'Dashboard Utama' },
-    { id: 'history', label: 'Riwayat Gempa' },
-    { id: 'weather', label: 'Prakiraan Cuaca' },
-    { id: 'contacts', label: 'Kontak & Panduan' }
+    { id: 'dashboard', label: t('nav_dashboard') },
+    { id: 'history', label: t('nav_history') },
+    { id: 'weather', label: t('nav_weather') },
+    { id: 'contacts', label: t('nav_contacts') }
   ];
 
   return (
@@ -28,7 +31,7 @@ export default function Header({ activeTab, setActiveTab, onOpenNotifications, o
               Nusantara<span className="text-safety-emerald">Alert</span>
             </span>
             <span className="hidden sm:inline-block ml-2 text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 bg-primary/10 text-primary rounded-full">
-              Pemantauan Publik BMKG
+              {t('app_subtitle')}
             </span>
           </div>
         </a>
@@ -57,12 +60,22 @@ export default function Header({ activeTab, setActiveTab, onOpenNotifications, o
 
       {/* Action Buttons */}
       <div className="flex items-center gap-2 sm:gap-3">
+        {/* Language Switcher Toggle */}
+        <button
+          onClick={toggleLanguage}
+          className="flex items-center gap-1.5 bg-surface-container-low hover:bg-surface-container text-on-surface px-2.5 py-1.5 rounded-full font-extrabold text-xs border border-surface-border transition-all cursor-pointer shadow-xs"
+          title={language === 'id' ? "Switch to English 🇬🇧" : "Ubah ke Bahasa Indonesia 🇮🇩"}
+        >
+          <Globe className="w-3.5 h-3.5 text-primary" />
+          <span className="uppercase text-[11px] font-black">{language === 'id' ? 'ID 🇮🇩' : 'EN 🇬🇧'}</span>
+        </button>
+
         <button
           onClick={onOpenRiskIndex}
           className="hidden sm:flex items-center gap-1.5 bg-surface-container-low hover:bg-surface-container text-on-surface px-3 py-1.5 rounded-full font-bold text-xs border border-surface-border transition-colors cursor-pointer"
           title="Lihat Indeks Risiko Bencana Per Kabupaten/Kota"
         >
-          <span>📊 Indeks Risiko</span>
+          <span>📊 {t('risk_index_btn')}</span>
         </button>
 
         <button 
@@ -91,7 +104,7 @@ export default function Header({ activeTab, setActiveTab, onOpenNotifications, o
           title="Buka Informasi Siaga Bencana Publik"
         >
           <span className="w-2 h-2 rounded-full bg-safety-emerald animate-pulse"></span>
-          <span className="font-bold tracking-wide uppercase">Siaga Bencana</span>
+          <span className="font-bold tracking-wide uppercase">{t('alert_status_normal')}</span>
         </button>
       </div>
     </header>

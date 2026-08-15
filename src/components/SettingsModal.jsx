@@ -9,8 +9,8 @@ export default function SettingsModal({ isOpen, onClose }) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs animate-fade-in" onClick={onClose}>
-      <div 
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs animate-fade-in" onClick={onClose}>
+      <div
         className="bg-surface-container-lowest rounded-3xl border border-surface-border w-full max-w-md p-6 shadow-2xl space-y-5 animate-scale-up"
         onClick={(e) => e.stopPropagation()}
       >
@@ -30,9 +30,9 @@ export default function SettingsModal({ isOpen, onClose }) {
                 <div className="text-xs text-text-muted">Bunyikan alarm saat terjadi gempa &gt; M 6.0</div>
               </div>
             </div>
-            <input 
-              type="checkbox" 
-              checked={soundEnabled} 
+            <input
+              type="checkbox"
+              checked={soundEnabled}
               onChange={(e) => setSoundEnabled(e.target.checked)}
               className="w-5 h-5 accent-primary rounded cursor-pointer"
             />
@@ -46,9 +46,9 @@ export default function SettingsModal({ isOpen, onClose }) {
                 <div className="text-xs text-text-muted">Pembaruan otomatis tiap 60 detik</div>
               </div>
             </div>
-            <input 
-              type="checkbox" 
-              checked={autoRefresh} 
+            <input
+              type="checkbox"
+              checked={autoRefresh}
               onChange={(e) => setAutoRefresh(e.target.checked)}
               className="w-5 h-5 accent-primary rounded cursor-pointer"
             />
@@ -58,7 +58,7 @@ export default function SettingsModal({ isOpen, onClose }) {
             <div className="flex items-center gap-2 font-bold text-sm text-on-surface">
               <Radio className="w-4 h-4 text-warning-amber" /> Filter Ambang Magnitudo Minimal
             </div>
-            <select 
+            <select
               value={minMagnitude}
               onChange={(e) => setMinMagnitude(e.target.value)}
               className="w-full bg-surface-container-lowest border border-surface-border rounded-lg p-2 text-sm text-on-surface font-semibold focus:outline-none focus:ring-2 focus:ring-primary"
@@ -75,12 +75,12 @@ export default function SettingsModal({ isOpen, onClose }) {
           </div>
         </div>
 
-          <button 
-            onClick={onClose}
-            className="w-full bg-primary text-white hover:bg-primary/90 font-bold py-2.5 rounded-xl transition-colors shadow-sm text-xs"
-          >
-            Simpan & Terapkan
-          </button>
+        <button
+          onClick={onClose}
+          className="w-full bg-primary text-white hover:bg-primary/90 font-bold py-2.5 rounded-xl transition-colors shadow-sm text-xs"
+        >
+          Simpan & Terapkan
+        </button>
       </div>
     </div>
   );
