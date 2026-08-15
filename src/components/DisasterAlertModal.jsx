@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { ShieldAlert, PhoneCall, Volume2, VolumeX, CheckCircle, X, BellRing, ShieldCheck, AlertTriangle } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 export function DisasterAlertModal({ isOpen, onClose, latestQuake }) {
+  const { t } = useLanguage();
   const [soundAlert, setSoundAlert] = useState(false);
   const [dontShowAgain, setDontShowAgain] = useState(false);
 

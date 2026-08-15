@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { X, Search, ShieldAlert, AlertTriangle, CheckCircle2, MapPin, Activity, Flame, Droplets, Mountain, Loader2 } from 'lucide-react';
 import { searchIndonesianLocations } from '../services/bmkgService';
+import { useLanguage } from '../context/LanguageContext';
 
 // Comprehensive Database of Regencies & Cities across 38 Indonesian Provinces
 const COMPREHENSIVE_INDONESIA_RISK_DATA = [
@@ -424,6 +425,7 @@ const generateDynamicRiskData = (name, province) => {
 };
 
 export default function DisasterRiskModal({ isOpen, onClose }) {
+  const { t } = useLanguage();
   const [searchQuery, setSearchQuery] = useState('');
   const [displayList, setDisplayList] = useState(COMPREHENSIVE_INDONESIA_RISK_DATA);
   const [selectedRegency, setSelectedRegency] = useState(COMPREHENSIVE_INDONESIA_RISK_DATA[0]);

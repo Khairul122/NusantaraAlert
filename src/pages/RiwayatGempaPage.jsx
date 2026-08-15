@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Search, Filter, Calendar, MapPin, ChevronRight, AlertTriangle, Layers, Clock } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function RiwayatGempaPage({ quakes, onSelectQuake }) {
+  const { t } = useLanguage();
   const [searchQuery, setSearchQuery] = useState('');
   const [magFilter, setMagFilter] = useState('all');
 
@@ -23,10 +25,10 @@ export default function RiwayatGempaPage({ quakes, onSelectQuake }) {
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
           <h1 className="text-2xl md:text-3xl font-extrabold text-on-surface tracking-tight">
-            Riwayat Aktivitas Gempa Bumi BMKG Indonesia
+            {t('history_title')}
           </h1>
           <p className="text-sm text-text-muted mt-1">
-            Arsip data seismik resmi dari jaringan stasiun pemantau BMKG di seluruh kawasan Nusantara.
+            {t('history_sub')}
           </p>
         </div>
 
@@ -40,7 +42,7 @@ export default function RiwayatGempaPage({ quakes, onSelectQuake }) {
                 : 'bg-surface-container-low text-on-surface-variant hover:bg-surface-container border border-surface-border'
             }`}
           >
-            Semua Peristiwa ({quakes.length})
+            {t('filter_all_mag')} ({quakes.length})
           </button>
           <button
             onClick={() => setMagFilter('5')}
@@ -50,7 +52,7 @@ export default function RiwayatGempaPage({ quakes, onSelectQuake }) {
                 : 'bg-surface-container-low text-on-surface-variant hover:bg-surface-container border border-surface-border'
             }`}
           >
-            M 5.0 - 5.9 (Signifikan)
+            {t('filter_mag_below_6')}
           </button>
           <button
             onClick={() => setMagFilter('6')}
@@ -60,92 +62,73 @@ export default function RiwayatGempaPage({ quakes, onSelectQuake }) {
                 : 'bg-surface-container-low text-on-surface-variant hover:bg-surface-container border border-surface-border'
             }`}
           >
-            M 6.0+ (Risiko Tinggi)
+            {t('filter_mag_above_6')}
           </button>
         </div>
       </div>
 
       {/* Search Input Bar */}
-      <div className="relative">
-        <label htmlFor="search-quake-input" className="sr-only">Cari Wilayah atau Tanggal Peristiwa Gempa Bumi</label>
-        <Search className="w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 text-text-muted" />
+      <div className="bg-surface-container-lowest border border-surface-border rounded-2xl p-4 shadow-sm flex items-center gap-3">
+        <Search className="w-5 h-5 text-text-muted shrink-0" />
         <input 
-          id="search-quake-input"
           type="text"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          placeholder="Cari nama wilayah atau tanggal gempa (contoh: Cianjur, Mentawai, Aceh)..."
-          className="w-full bg-surface-container-lowest border border-surface-border rounded-2xl pl-12 pr-4 py-3 text-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-primary shadow-xs"
+          placeholder={t('search_quake_placeholder')}
+          className="w-full bg-transparent text-sm text-on-surface focus:outline-none placeholder:text-text-muted font-medium"
         />
       </div>
 
-      {/* Quake Cards Grid */}
-      <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" aria-label="Daftar Laporan Gempa Bumi">
-        {filteredQuakes.map((q) => {
-          const mag = parseFloat(q.Magnitude) || 5.0;
-          let severityBg = 'bg-warning-amber text-white';
-          let borderHighlight = 'border-surface-border hover:border-warning-amber';
-
-          if (mag >= 6.0) {
-            severityBg = 'bg-alert-rose text-white';
-            borderHighlight = 'border-alert-rose/40 hover:border-alert-rose';
-          } else if (mag < 5.0) {
-            severityBg = 'bg-safety-emerald text-white';
-            borderHighlight = 'border-surface-border hover:border-safety-emerald';
-          }
+      {/* Quake Grid Archive */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {filteredQuakes.map((quake, idx) => {
+          const mag = parseFloat(quake.Magnitude) || 5.0;
+          let magBg = 'bg-warning-amber';
+          if (mag >= 6.0) magBg = 'bg-alert-rose';
+          if (mag < 5.0) magBg = 'bg-safety-emerald';
 
           return (
             <div 
-              key={q.id}
-              onClick={() => onSelectQuake(q)}
-              className={`bg-surface-container-lowest rounded-2xl border p-5 transition-all duration-200 cursor-pointer shadow-xs hover:shadow-md ${borderHighlight} flex flex-col justify-between group`}
+              key={idx}
+              onClick={() => onSelectQuake(quake)}
+              className="bg-surface-container-lowest border border-surface-border hover:border-primary/50 rounded-2xl p-5 shadow-xs hover:shadow-md transition-all cursor-pointer flex flex-col justify-between space-y-4 group"
             >
               <div>
                 <div className="flex justify-between items-start mb-3">
-                  <div 
-                    className={`w-14 h-14 rounded-2xl ${severityBg} flex items-center justify-center font-extrabold text-xl shadow-sm shrink-0 group-hover:scale-105 transition-transform`}
-                    title={`Magnitudo ${q.Magnitude}`}
-                  >
-                    {q.Magnitude}
+                  <div className={`px-3 py-1 rounded-xl text-white font-extrabold text-sm ${magBg} shadow-xs`}>
+                    M {quake.Magnitude}
                   </div>
-
-                  <span className="text-[11px] font-semibold px-2.5 py-1 bg-surface-container-low rounded-full text-text-muted border border-surface-border flex items-center gap-1">
-                    <Clock className="w-3 h-3" /> {q.Jam}
+                  <span className="text-[11px] text-text-muted font-semibold bg-surface-container-low px-2.5 py-1 rounded-full border border-surface-border flex items-center gap-1">
+                    <Clock className="w-3 h-3 text-primary" /> {quake.Jam}
                   </span>
                 </div>
 
-                <h2 className="font-bold text-base text-on-surface leading-snug group-hover:text-primary transition-colors">
-                  {q.Wilayah}
-                </h2>
-                <div className="text-xs text-text-muted mt-1 font-medium flex items-center gap-1">
-                  <Calendar className="w-3.5 h-3.5" /> {q.Tanggal}
-                </div>
+                <h3 className="font-extrabold text-base text-on-surface group-hover:text-primary transition-colors leading-snug">
+                  {quake.Wilayah}
+                </h3>
+                <p className="text-xs text-text-muted font-medium mt-1">
+                  {quake.Tanggal}
+                </p>
               </div>
 
-              <div className="pt-4 mt-4 border-t border-surface-border/60 flex items-center justify-between text-xs text-text-muted">
-                <div className="flex items-center gap-3">
-                  <span className="flex items-center gap-1 font-medium" title="Kedalaman Episentrum">
-                    <Layers className="w-3.5 h-3.5" /> Kedalaman: {q.Kedalaman}
-                  </span>
-                  <span className="flex items-center gap-1 font-medium" title="Koordinat Episentrum">
-                    <MapPin className="w-3.5 h-3.5" /> {q.Coordinates}
-                  </span>
+              <div className="pt-3 border-t border-surface-border flex items-center justify-between text-xs">
+                <div className="space-y-1">
+                  <div className="text-[11px] text-text-muted font-medium">
+                    {t('depth')}: <span className="font-bold text-on-surface">{quake.Kedalaman}</span>
+                  </div>
+                  <div className="text-[11px] text-text-muted font-medium">
+                    {t('coordinates')}: <span className="font-bold text-on-surface">{quake.Coordinates}</span>
+                  </div>
                 </div>
 
-                <ChevronRight className="w-4 h-4 text-primary group-hover:translate-x-1 transition-transform" />
+                <div className="w-8 h-8 rounded-full bg-surface-container-low group-hover:bg-primary group-hover:text-white text-text-muted flex items-center justify-center transition-all shrink-0">
+                  <ChevronRight className="w-4 h-4" />
+                </div>
               </div>
             </div>
           );
         })}
-      </section>
-
-      {filteredQuakes.length === 0 && (
-        <div className="text-center py-16 bg-surface-container-lowest rounded-2xl border border-surface-border">
-          <AlertTriangle className="w-12 h-12 text-warning-amber mx-auto mb-3" />
-          <h2 className="text-lg font-bold text-on-surface">Data Seismik Tidak Ditemukan</h2>
-          <p className="text-sm text-text-muted mt-1">Silakan sesuaikan kata kunci pencarian atau kriteria filter magnitudo Anda.</p>
-        </div>
-      )}
+      </div>
     </article>
   );
 }

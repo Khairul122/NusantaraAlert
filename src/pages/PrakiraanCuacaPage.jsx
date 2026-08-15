@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Search, MapPin, Droplets, Wind, Sun, ShieldCheck, RefreshCw, Navigation } from 'lucide-react';
 import AnimatedWeatherVisual from '../components/AnimatedWeatherVisual';
 import { searchIndonesianLocations, fetchWeatherForCoordinates } from '../services/bmkgService';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function PrakiraanCuacaPage({ weatherList = [] }) {
+  const { t } = useLanguage();
   const [activeWeatherList, setActiveWeatherList] = useState(weatherList);
   const [selectedCityState, setSelectedCityState] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
@@ -66,7 +68,23 @@ export default function PrakiraanCuacaPage({ weatherList = [] }) {
     setIsLoadingSelected(false);
   };
 
-  const selectedCity = selectedCityState || activeWeatherList[0] || weatherList[0] || {};
+  const selectedCity = selectedCityState || activeWeatherList[0] || {
+    city: 'Jakarta Pusat',
+    region: 'DKI Jakarta',
+    temp: 32,
+    condition: 'Cerah Berawan',
+    humidity: '72%',
+    wind: '14 km/jam',
+    uvIndex: 7,
+    airQuality: 'Baik',
+    hourly: [
+      { time: '13:00', temp: 32, icon: 'partly_cloudy_day' },
+      { time: '16:00', temp: 30, icon: 'cloudy' },
+      { time: '19:00', temp: 28, icon: 'rainy' },
+      { time: '22:00', temp: 26, icon: 'cloudy' },
+      { time: '01:00', temp: 25, icon: 'partly_cloudy_day' }
+    ]
+  };
 
   const filteredLocations = activeWeatherList.filter(item => {
     if (activeFilterType === 'KOTA') return item.type === 'Kota' || !item.type;

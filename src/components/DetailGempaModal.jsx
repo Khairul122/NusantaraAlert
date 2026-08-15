@@ -1,7 +1,9 @@
 import React from 'react';
 import { X, ShieldAlert, Share2, MapPin, Layers, Clock, AlertTriangle, Compass, CheckCircle2 } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function DetailGempaModal({ quake, onClose }) {
+  const { t } = useLanguage();
   if (!quake) return null;
 
   const mag = parseFloat(quake.Magnitude) || 5.0;

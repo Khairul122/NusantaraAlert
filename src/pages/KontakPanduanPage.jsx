@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { PhoneCall, ShieldAlert, HeartPulse, Shield, Radio, CheckSquare, Square, BookOpen, AlertOctagon, Flame } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function KontakPanduanPage() {
+  const { t } = useLanguage();
   const [activeGuideTab, setActiveGuideTab] = useState('gempa');
   const [checklist, setChecklist] = useState({
     air: true,
