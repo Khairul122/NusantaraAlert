@@ -9,14 +9,29 @@
 
 > **NusantaraAlert** adalah platform publik terpadu pemantauan siaga bencana geofisika dan cuaca waktu-nyata di Indonesia. Terintegrasi langsung dengan API resmi **BMKG (TEWS)** dan **Open Data Meteorologi**, platform ini menyajikan peta episentrum interaktif, analisis jalur sesar aktif, prediksi cuaca presisi kota/kabupaten, asisten AI siaga bencana *"Si Alerta"*, serta nomor darurat panggilan langsung.
 
-🌐 **Demo Website Live**: [https://nusantara-alert-nine.vercel.app/](https://nusantara-alert-nine.vercel.app/)
+🌐 **Demo Website Live**: [https://nusantara-alert-nine.vercel.app/](https://nusantara-alert-nine.vercel.app/)  
+📖 **Dokumentasi Lengkap Sistem**: [DOCUMENTATION.md](./DOCUMENTATION.md)
+
+---
+
+## 🖼️ Tangkapan Layar Website (Screenshots Showcase)
+
+### 🖥️ Desktop Dashboard View
+<p align="center">
+  <img src="./docs/screenshots/desktop_dashboard.png" alt="Desktop Dashboard View" width="100%" />
+</p>
+
+### 📱 Mobile View
+<p align="center">
+  <img src="./docs/screenshots/mobile_dashboard.png" alt="Mobile Dashboard View" width="320" />
+</p>
 
 ---
 
 ## 📸 Maskot Resmi: Si Alerta 🦅
 
 <p align="center">
-  <img src="./public/mascot.png" alt="Maskot Si Alerta NusantaraAlert" width="220" />
+  <img src="./public/mascot.png" alt="Maskot Si Alerta NusantaraAlert" width="200" />
   <br />
   <b>Si Alerta</b> — <i>Asisten AI Siaga Bencana & Kesiapsiagaan Publik</i>
 </p>
