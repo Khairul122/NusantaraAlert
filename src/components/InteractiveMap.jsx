@@ -114,7 +114,7 @@ export default function InteractiveMap({ quakes = [], selectedQuake, onSelectQua
   return (
     <div className="w-full h-full relative overflow-hidden rounded-2xl border border-surface-border bg-surface-container shadow-sm">
       {/* Floating Layer Control Toggle Button */}
-      <div className="absolute top-4 right-4 z-[400]">
+      <div className="absolute top-4 right-4 z-30">
         <button 
           onClick={() => setShowLayerPanel(!showLayerPanel)}
           className="bg-surface-container-lowest/90 backdrop-blur-md border border-surface-border p-2.5 rounded-2xl shadow-lg flex items-center gap-2 text-xs font-bold text-on-surface hover:bg-surface-container-low transition-all"
@@ -126,7 +126,7 @@ export default function InteractiveMap({ quakes = [], selectedQuake, onSelectQua
 
         {/* Floating Layer Selection Panel */}
         {showLayerPanel && (
-          <div className="absolute right-0 top-12 bg-surface-container-lowest/95 backdrop-blur-md border border-surface-border p-3.5 rounded-2xl shadow-2xl w-60 space-y-2.5 z-[400] text-xs">
+          <div className="absolute right-0 top-12 bg-surface-container-lowest/95 backdrop-blur-md border border-surface-border p-3.5 rounded-2xl shadow-2xl w-60 space-y-2.5 z-30 text-xs">
             <h4 className="font-extrabold text-on-surface border-b border-surface-border pb-1.5 uppercase text-[10px] tracking-wider">
               Layer Tematik Bencana
             </h4>

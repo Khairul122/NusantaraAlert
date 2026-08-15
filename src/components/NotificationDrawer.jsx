@@ -29,7 +29,7 @@ export default function NotificationDrawer({ isOpen, onClose }) {
   ];
 
   return (
-    <div className="fixed inset-0 z-50 flex justify-end bg-black/40 backdrop-blur-xs animate-fade-in" onClick={onClose}>
+    <div className="fixed inset-0 z-[9999] flex justify-end bg-black/40 backdrop-blur-xs animate-fade-in" onClick={onClose}>
       <div 
         className="w-full max-w-sm bg-surface-container-lowest h-full shadow-2xl border-l border-surface-border p-5 flex flex-col justify-between animate-slide-left"
         onClick={(e) => e.stopPropagation()}

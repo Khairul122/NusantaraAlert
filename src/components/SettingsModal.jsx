@@ -9,7 +9,7 @@ export default function SettingsModal({ isOpen, onClose }) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs animate-fade-in" onClick={onClose}>
+    <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs animate-fade-in" onClick={onClose}>
       <div 
         className="bg-surface-container-lowest rounded-3xl border border-surface-border w-full max-w-md p-6 shadow-2xl space-y-5 animate-scale-up"
         onClick={(e) => e.stopPropagation()}
